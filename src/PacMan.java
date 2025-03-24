@@ -1,5 +1,3 @@
-import org.w3c.dom.Text;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -196,12 +194,21 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     int keyCode = e.getKeyCode();
     if (keyCode == KeyEvent.VK_RIGHT) {
       int pacManNewXPos = pacman.getX() + tileSize;
+      if (pacManNewXPos == boardWidth) {
+        pacManNewXPos = 0;
+      }
       newPosCharacter = tileMap[pacman.getY() / tileSize].charAt(pacManNewXPos / tileSize);
       handleHorizontalMovement(newPosCharacter, pacManNewXPos, pacmanRightImage);
     }
 
     if (keyCode == KeyEvent.VK_LEFT) {
+      // IF current is 0
+
+      // THEN go to length
       int pacManNewXPos = pacman.getX() - tileSize;
+      if (pacman.getX() == 0) {
+        pacManNewXPos = boardWidth - tileSize;
+      }
       newPosCharacter = tileMap[pacman.getY() / tileSize].charAt(pacManNewXPos / tileSize);
       handleHorizontalMovement(newPosCharacter, pacManNewXPos, pacmanLeftImage);
     }
@@ -236,6 +243,10 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
   private void handleHorizontalMovement(char newPosCharacter, int pacManNewXPos, Image newImage) {
     if (newPosCharacter == 'X') {
       return;
+    }
+
+    if (newPosCharacter == '0') {
+//      pacManNewXPos
     }
 
     pacman.setX(pacManNewXPos);
